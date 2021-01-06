@@ -1,4 +1,5 @@
-#FlightHub Trip Builder V0.1
+FlightHub Trip Builder V0.1
+==========
 
 ## Requirements
 
