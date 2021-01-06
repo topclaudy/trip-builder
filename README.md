@@ -15,6 +15,7 @@ FlightHub Trip Builder V0.1
 - Create 2 databases, one for the app (Ex: `flighthub`), the other for running tests (Ex: `flighthub_test`)  
 - Copy the file `.env.example` to `.env` and set the variables for the app database connection (`DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`)
 - Copy the file `.env.example` to `.env.testing` and set the variables for the test database connection (`DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`)
+- Issue the command `php artisan key:generate` to generate the application key
 - Issue the command `php artisan migrate:fresh --seed` to run the migration and populate the database
 - Issue the command `php artisan test` to run the feature tests
 
