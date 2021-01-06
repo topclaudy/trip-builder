@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    return 'Welcome to the Trip Builder. The API documentation can be found <a href="https://documenter.getpostman.com/view/10051607/TVzNHet1">here</a>';
 });
