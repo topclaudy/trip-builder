@@ -16,7 +16,7 @@ FlightHub Trip Builder V0.1
 - Copy the file `.env.example` to `.env` and set the variables for the app database connection (`DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`)
 - Copy the file `.env.example` to `.env.testing` and set the variables for the test database connection (`DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`)
 - Issue the command `php artisan key:generate` to generate the application key
-- Issue the command `php artisan migrate:fresh --seed` to run the migration and populate the database
+- Issue the command `php artisan migrate:fresh --seed` to run the migrations and populate the database
 - Issue the command `php artisan test` to run the feature tests
 
 ## Running the application
@@ -29,6 +29,10 @@ By default the HTTP-server will listen to port 8000. However if that port is alr
 
 You can now visit the URL `http://127.0.0.1:8000/api/trip` to view the JSON list of trips
 
+## API Documentation
+
+The API documentation can be found [here](https://documenter.getpostman.com/view/10051607/TVzNHet1).
+
 ## Features
 
 - An API endpoint to create/build trips.
@@ -39,9 +43,6 @@ You can now visit the URL `http://127.0.0.1:8000/api/trip` to view the JSON list
 - Ability to sort trip listings in descendant order of departure date (default is ascendant)
 - Pagination of trip listings.
 
-## API Documentation
-
-The API documentation can be found [here](https://documenter.getpostman.com/view/10051607/TVzNHet1). 
 
 
  
