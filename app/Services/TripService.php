@@ -10,12 +10,24 @@ use App\Models\Flight;
 
 class TripService
 {
-    public function getNearestAirPortWithinDistance($location, $vicinityTreshold = 50 /* In km */){
-        return Airport::withinDistanceTo($location, $vicinityTreshold)
-            ->orderByDistanceTo($location)
+    /**
+     * Get the nearest airport within distance from a location
+     *
+     * @param $location array location coordinate, ex: ['latitude' => 43.5, 'longitude' => -73.3]
+     * @param $vicinityTreshold float the search radius in km
+     * @return Airport|null
+     */
+    public function getNearestAirPortWithinDistance($location, $vicinityTreshold = 50){
+        return Airport::withinDistanceTo($location, $vicinityTreshold) //The `withinDistanceTo` is a local scope
+            ->orderByDistanceTo($location) //The `orderByDistanceTo` is a local scope
             ->first();
     }
 
+    /**
+     * Structure the payload in a format that is easier to process (We call this the `flights definition` of the trip).
+     *
+     * @return array An array of flight IDs mapped to departure dates
+     */
     public function extractFlightsDefinitionFromPayload($flightsPayload){
         $flights = array_map(function($flight){
             $departureAirport = $this->getNearestAirPortWithinDistance($flight['departure_location']);
@@ -42,6 +54,11 @@ class TripService
         return ['flights' => $flights];
     }
 
+    /**
+     * Order the flights definition by departure dates in ascendant order
+     *
+     * @param $flights array The flights to order
+     */
     public function orderFlightsDefinition(array &$flights)
     {
         usort($flights, function($f1, $f2){
@@ -49,6 +66,11 @@ class TripService
         });
     }
 
+    /**
+     * Get the type of the trip from the flights definition
+     *
+     * @param $flights array The flights definition
+     */
     public function getTypeFromFlights(array $flights)
     {
         if (count($flights) == 0) {

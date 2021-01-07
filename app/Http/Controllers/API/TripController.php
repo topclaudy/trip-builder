@@ -40,6 +40,7 @@ class TripController extends Controller
             $payload = $request->only(['flights']);
             $payload = $this->tripService->extractFlightsDefinitionFromPayload($payload);
 
+            //Check app/Providers/ValidatorServiceProvider.php for the custom validation rules
             $validator = Validator::make($payload, [
                 'flights.*.id'             => 'flight_exists',
                 'flights.*.departure_date' => 'date_format:Y-m-d|flight_date_valid',
