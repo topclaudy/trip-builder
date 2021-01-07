@@ -24,18 +24,35 @@ class TripService
     }
 
     /**
+     * Get airport from a location
+     *
+     * @param $location array|string location coordinate or city name, ex: ['latitude' => 43.5, 'longitude' => -73.3] or 'Montreal'
+     * @param $vicinityTreshold float the search radius in km (not used if location is a city name)
+     * @return Airport|null
+     */
+    public function getAirPortForLocation($location, $vicinityTreshold = 50){
+        if(is_array($location) && isset($location['latitude']) && isset($location['longitude'])) {
+            return $this->getNearestAirPortWithinDistance($location, $vicinityTreshold);
+        } elseif(is_string($location)){
+            return Airport::whereCity($location)->first();
+        }
+
+        return null;
+    }
+
+    /**
      * Structure the payload in a format that is easier to process (We call this the `flights definition` of the trip).
      *
      * @return array An array of flight IDs mapped to departure dates
      */
     public function extractFlightsDefinitionFromPayload($flightsPayload){
         $flights = array_map(function($flight){
-            $departureAirport = $this->getNearestAirPortWithinDistance($flight['departure_location']);
+            $departureAirport = $this->getAirPortForLocation($flight['departure_location']);
             if(!$departureAirport){
                 throw new AirportNotFoundException("No departure airport found around the location ({$flight['departure_location']['latitude']}, {$flight['departure_location']['longitude']})");
             }
 
-            $arrivalAirport = $this->getNearestAirPortWithinDistance($flight['arrival_location']);
+            $arrivalAirport = $this->getAirPortForLocation($flight['arrival_location']);
             if(!$arrivalAirport){
                 throw new AirportNotFoundException("No arrival airport found around the location ({$flight['arrival_location']['latitude']}, {$flight['arrival_location']['longitude']})");
             }

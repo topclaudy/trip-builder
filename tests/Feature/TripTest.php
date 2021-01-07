@@ -254,6 +254,39 @@ class TripTest extends TestCase
     }
 
     /**
+     * It ensures a trip is created successfully.
+     *
+     * @test
+     * @return void
+     */
+    public function it_ensures_a_trip_can_be_created_successfully_using_city_name_as_location()
+    {
+        $tripsCount = DB::table('trips')->count();
+        $tripFlightsCount = DB::table('flight_trip')->count();
+
+        $payload = [
+            'flights' => [
+                [
+                    'departure_date'     => '2021-04-01',
+                    'departure_location' => "Montreal",
+                    'arrival_location'   => "Vancouver",
+                ],
+                [
+                    'departure_date'     => '2021-04-02',
+                    'departure_location' => "Vancouver",
+                    'arrival_location'   => "Montreal",
+                ]
+            ],
+        ];
+
+        $response = $this->post('/api/trip/store', $payload);
+
+        $this->assertDatabaseCount('trips', $tripsCount + 1);
+        $this->assertDatabaseCount('flight_trip', $tripFlightsCount + count($payload['flights']));
+        $response->assertStatus(201);
+    }
+
+    /**
      * It ensures trip with invalid flights can't be created.
      *
      * @test
