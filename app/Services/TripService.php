@@ -14,11 +14,11 @@ class TripService
      * Get the nearest airport within distance from a location
      *
      * @param $location array location coordinate, ex: ['latitude' => 43.5, 'longitude' => -73.3]
-     * @param $vicinityTreshold float the search radius in km
+     * @param $vicinitySearchRadius float the search radius in km
      * @return Airport|null
      */
-    public function getNearestAirPortWithinDistance($location, $vicinityTreshold = 50){
-        return Airport::withinDistanceTo($location, $vicinityTreshold) //The `withinDistanceTo` is a local scope
+    public function getNearestAirPortWithinDistance($location, $vicinitySearchRadius = 50){
+        return Airport::withinDistanceTo($location, $vicinitySearchRadius) //The `withinDistanceTo` is a local scope
             ->orderByDistanceTo($location) //The `orderByDistanceTo` is a local scope
             ->first();
     }
@@ -27,12 +27,12 @@ class TripService
      * Get airport from a location
      *
      * @param $location array|string location coordinate or city name, ex: ['latitude' => 43.5, 'longitude' => -73.3] or 'Montreal'
-     * @param $vicinityTreshold float the search radius in km (not used if location is a city name)
+     * @param $vicinitySearchRadius float the search radius in km (not used if location is a city name)
      * @return Airport|null
      */
-    public function getAirPortForLocation($location, $vicinityTreshold = 50){
+    public function getAirPortForLocation($location, $vicinitySearchRadius = 50){
         if(is_array($location) && isset($location['latitude']) && isset($location['longitude'])) {
-            return $this->getNearestAirPortWithinDistance($location, $vicinityTreshold);
+            return $this->getNearestAirPortWithinDistance($location, $vicinitySearchRadius);
         } elseif(is_string($location)){
             return Airport::whereCity($location)->first();
         }
