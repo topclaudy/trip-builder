@@ -7,8 +7,10 @@ use App\Exceptions\FlightNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Models\Trip;
 use App\Services\TripService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class TripController extends Controller
@@ -67,6 +69,9 @@ class TripController extends Controller
             return response()->json([$e->getMessage()], 422);
         } catch(FlightNotFoundException $e){
             return response()->json([$e->getMessage()], 422);
+        } catch(Exception $e){
+            Log::error($e->getMessage());
+            return response()->json(['An error occurred!'], 500);
         }
     }
 }
