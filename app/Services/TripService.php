@@ -95,15 +95,4 @@ class TripService
             return TripType::Unsupported;
         }
     }
-
-    public function getFlightDefinitionForSync(array $flights)
-    {
-        $flightsForSync = [];
-
-        foreach($flights as $f){
-            $flightsForSync[$f['id']] = ['departure_date' => $f['departure_date']];
-        }
-
-        return $flightsForSync;
-    }
 }
