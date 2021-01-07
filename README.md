@@ -29,6 +29,10 @@ By default the HTTP-server will listen to port 8000. However if that port is alr
 
 You can now visit the URL `http://127.0.0.1:8000/api/trip` to view the JSON list of trips
 
+## Demo
+
+A demo can be found at [https://tripbuilder.awobaz.com](https://tripbuilder.awobaz.com). Ex: `https://tripbuilder.awobaz.com/api/trip`
+
 ## API Documentation
 
 The API documentation can be found [here](https://documenter.getpostman.com/view/10051607/TVzNHet1).
