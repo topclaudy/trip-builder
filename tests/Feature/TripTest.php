@@ -246,7 +246,7 @@ class TripTest extends TestCase
             ],
         ];
 
-        $response = $this->post('/api/trip/store', $payload);
+        $response = $this->post('/api/trip/', $payload);
 
         $this->assertDatabaseCount('trips', $tripsCount + 1);
         $this->assertDatabaseCount('flight_trip', $tripFlightsCount + count($payload['flights']));
@@ -279,7 +279,7 @@ class TripTest extends TestCase
             ],
         ];
 
-        $response = $this->post('/api/trip/store', $payload);
+        $response = $this->post('/api/trip/', $payload);
 
         $this->assertDatabaseCount('trips', $tripsCount + 1);
         $this->assertDatabaseCount('flight_trip', $tripFlightsCount + count($payload['flights']));
@@ -294,7 +294,7 @@ class TripTest extends TestCase
      */
     public function it_ensures_trip_with_at_least_one_unfound_airport_location_cant_be_created()
     {
-        $response = $this->post('/api/trip/store', [
+        $response = $this->post('/api/trip/', [
             'flights' => [
                 [
                     'departure_date'     => '2021-03-01',
@@ -346,7 +346,7 @@ class TripTest extends TestCase
      */
     public function it_ensures_trip_with_invalid_dates_cant_be_created()
     {
-        $response = $this->post('/api/trip/store', [
+        $response = $this->post('/api/trip/', [
             'flights' => [
                 [
                     'departure_date'     => '2019-03-01', //Date in the past
@@ -397,7 +397,7 @@ class TripTest extends TestCase
      */
     public function it_ensures_trip_with_unavailable_flight_cant_be_created()
     {
-        $response = $this->post('/api/trip/store', [
+        $response = $this->post('/api/trip/', [
             'flights' => [
                 [
                     'departure_date'     => '2021-08-06',
@@ -425,7 +425,7 @@ class TripTest extends TestCase
      */
     public function it_ensures_unsupported_trip_type_cant_be_created()
     {
-        $response = $this->post('/api/trip/store', [
+        $response = $this->post('/api/trip/', [
             'flights' => [
                 [
                     'departure_date'     => '2021-03-01',

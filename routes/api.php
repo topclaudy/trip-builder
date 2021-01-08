@@ -33,7 +33,7 @@ Route::group(['prefix' => 'trip'], function () {
         ->name('api.trip.index')
         ->uses('TripController@index');
 
-    Route::post('/store')
+    Route::post('/')
         ->name('api.trip.store.one-way')
         ->uses('TripController@store');
 });
